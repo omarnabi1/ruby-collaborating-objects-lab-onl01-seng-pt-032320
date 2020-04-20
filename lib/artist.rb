@@ -29,7 +29,7 @@ class Artist
       new_artist.save
       new_artist
     end
-end
+  end
   
   def print_songs
     @songs.each do |song|
