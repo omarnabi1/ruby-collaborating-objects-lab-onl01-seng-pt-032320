@@ -1,17 +1,25 @@
 class MP3Importer
 
-  attr_accessor :path
+@@all = []
 
-  def initialize(path)
-    @path = path
-  end
+attr_accessor :filenames , :path
 
-  def files
-    @files ||= Dir.entries(@path).select {|song| !File.directory?(song) && song.end_with?(".mp3")}
-  end
+def initialize(path)
+  
+  @path = path
+  @filenames =[]
+end
 
-  def import
-    files.each {|song| Song.new_by_filename(song)}
-  end
+def files
+  Dir.entries(path).each do |filename|
+      @filenames << "#{filename}"
+    end
+    @filenames.delete_if {|x| x == "." || x == ".."}
+  
+end 
+
+def import 
+  files.each {|song| Song.new_by_filename(song)}
+end
 
 end
