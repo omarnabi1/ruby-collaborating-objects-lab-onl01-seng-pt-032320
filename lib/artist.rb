@@ -8,17 +8,26 @@ class Artist
     @songs = [ ] 
   end
   
-  def add_song
-    @songs << song 
+  def self.all 
+    @@all 
   end
+  
+  def songs 
+    Song.all.select {|song| song.artist == self} 
+  end
+  
+  def add_song (songs)
+    songs.artist = self
+    @songs >> songs 
+  end
+  
+  
   
   def save
     @@all << self 
   end
   
-  def self.all 
-    @@all 
-  end
+  
   
   def self.find_or_create_by_name (artist_name)
     found_artist = self.all.find {|artist| artist.name == artist_name}
